@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "192773362824",
+    "project_id": "sozlistesi",
+    "storage_bucket": "sozlistesi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:192773362824:android:33f992cc47d82f4bfa3b3d",
+        "android_client_info": {
+          "package_name": "com.example.sozlistesi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "192773362824-ng70ejgevso0ahq0c71lbd054mv69u37.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrUZZeIJEIUEcdST5hzps30jW5gZLwb_U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "192773362824-ng70ejgevso0ahq0c71lbd054mv69u37.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:192773362824:android:30a90b4d9d7d68bdfa3b3d",
+        "android_client_info": {
+          "package_name": "com.example.sozlistesi01"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "192773362824-ng70ejgevso0ahq0c71lbd054mv69u37.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrUZZeIJEIUEcdST5hzps30jW5gZLwb_U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "192773362824-ng70ejgevso0ahq0c71lbd054mv69u37.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
