@@ -58,7 +58,7 @@ class _MyAppState extends State<MyApp> {
                         print(documentSnapshot.get('name'));
                         String name1=documentSnapshot.get('name');
                         String result1=name1.trim();
-                        String giris='Yalova95                        ';
+                        String giris='Yalova9511                        ';
                         String girisTrim=giris.trim();
                         if(result1==girisTrim){
                           //yazi();
