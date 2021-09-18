@@ -4,12 +4,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'dart:async';
 
-class Liste extends StatefulWidget {
+class Kayit extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<Liste> {
+class _MyAppState extends State<Kayit> {
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
   Future<QuerySnapshot> getData() async {
@@ -18,13 +18,22 @@ class _MyAppState extends State<Liste> {
     return querySnapshot;
   }
 
+  Future<void> addData() async{
+    FirebaseFirestore firebaseFirestore=FirebaseFirestore.instance;
+    CollectionReference database=await firebaseFirestore.collection('data');
+    //DocumentReference documentReference=database.doc('4');
+    //documentReference.set({'name':'kemal'});
+    database.add({'name':'izmir75'});
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Liste'),
+          title: Text('Silme'),
         ),
         body: Column(
           children: [
@@ -44,15 +53,10 @@ class _MyAppState extends State<Liste> {
                               documentSnapshot.get('name'),
                             ),
                             onTap: (){
-                              print(documentSnapshot.get('name'));
-                              String name1=documentSnapshot.get('name');
-                              String result1=name1.trim();
-                              String giris='Yalova95                       ';
-                              String girisTrim=giris.trim();
-                              if(result1==girisTrim){
-                                //yazi();
-                                print('Tamam 3500');
-                              }
+                              print('silme');
+                              setState(() {
+
+                              });
                             },
                           );
                         }),
@@ -60,9 +64,13 @@ class _MyAppState extends State<Liste> {
                 }),
             Column(
               children: [
-                /*SizedBox(
-                  height: 100,
-                ),*/
+                ElevatedButton(
+                    child: Text('Kayıt Girişi',style: TextStyle(fontSize: 30.0)),
+                    onPressed: (){
+                      setState(() {
+                        addData();
+                      });
+                    }),
                 ElevatedButton(
                   onPressed: (){
                     Navigator.pop(context);

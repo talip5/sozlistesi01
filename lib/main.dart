@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sozlistesi01/screens/home.dart';
+import 'package:sozlistesi01/screens/kayit.dart';
 import 'package:sozlistesi01/screens/liste.dart';
 import 'package:sozlistesi01/screens/silme.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -19,6 +20,7 @@ void main() async {
       "/":(context)=>Home(),
       "/liste":(context)=>Liste(),
       "/silme":(context)=>Silme(),
+      "/kayit":(context)=>Kayit(),
     },
   ));
 }

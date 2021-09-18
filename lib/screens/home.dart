@@ -13,14 +13,21 @@ class Home extends StatelessWidget {
           child: Column(
             children: <Widget>[
               ElevatedButton(
-                child: Text("Liste Sayfasına git"),
+                child: Text("Kayıt Sayfasına git",style: TextStyle(fontSize: 25.0),),
+                //color: Colors.amber,
+                onPressed: (){
+                  Navigator.pushNamed(context, "/kayit");
+                },
+              ),
+              ElevatedButton(
+                child: Text("Liste Sayfasına git",style: TextStyle(fontSize: 25.0),),
                 //color: Colors.amber,
                 onPressed: (){
                   Navigator.pushNamed(context, "/liste");
                 },
               ),
               ElevatedButton(
-                child: Text("Silme Sayfasına git"),
+                child: Text("Silme Sayfasına git",style: TextStyle(fontSize: 25.0),),
                 //color: Colors.amber,
                 onPressed: (){
                   Navigator.pushNamed(context, "/silme");
