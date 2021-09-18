@@ -4,27 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'dart:async';
 
-/*
-class Liste extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    return (Scaffold(
-      appBar: AppBar(title: Text("Liste"),),
-      body: Center(
-        child: Column(
-          children: <Widget>[
-
-          ],
-        ),
-      ),
-    )
-    );
-  }
-}
-*/
-
-
-
 class Liste extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
@@ -45,7 +24,7 @@ class _MyAppState extends State<Liste> {
       title: 'Flutter Demo',
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Future'),
+          title: Text('Liste'),
         ),
         body: Column(
           children: [
