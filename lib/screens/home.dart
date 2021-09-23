@@ -7,10 +7,11 @@ class Home extends StatelessWidget {
     return (Scaffold(
         appBar: AppBar(
           //backgroundColor: Colors.redAccent,
-          title: Text("Home"),
+          title: Text("Home35"),
         ),
         body: Center(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               ElevatedButton(
                 child: Text("Kayıt Sayfasına git",style: TextStyle(fontSize: 25.0),),
@@ -31,6 +32,13 @@ class Home extends StatelessWidget {
                 //color: Colors.amber,
                 onPressed: (){
                   Navigator.pushNamed(context, "/silme");
+                },
+              ),
+              ElevatedButton(
+                child: Text("Tek Silme Sayfasına Git",style: TextStyle(fontSize: 25.0),),
+                //color: Colors.amber,
+                onPressed: (){
+                  Navigator.pushNamed(context, "/tekSilme");
                 },
               ),
             ],

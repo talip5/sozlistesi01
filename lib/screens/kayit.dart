@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'dart:async';
+import 'package:flutter/services.dart';
+import 'package:sozlistesi01/models/students.dart';
 
 class Kayit extends StatefulWidget {
   @override
@@ -10,7 +11,6 @@ class Kayit extends StatefulWidget {
 }
 
 class _MyAppState extends State<Kayit> {
-  FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
   FocusNode myFocusNode;
 
@@ -22,153 +22,142 @@ class _MyAppState extends State<Kayit> {
 
   @override
   void dispose() {
-    //myFocusNode.dispose();
+    myFocusNode.dispose();
+    firstName.dispose();
+    lastName.dispose();
+    number.dispose();
     super.dispose();
   }
 
   TextEditingController firstName = TextEditingController();
-  TextEditingController lastName= TextEditingController();
-  double sonuc = 0;
+  TextEditingController lastName = TextEditingController();
+  TextEditingController number = TextEditingController();
 
   _dismissDialog() {
     Navigator.pop(context);
   }
 
-
-  Future<QuerySnapshot> getData() async {
-    QuerySnapshot querySnapshot =
-    await firebaseFirestore.collection('data').get();
-    return querySnapshot;
-  }
-
-  Future<void> addData() async{
-    FirebaseFirestore firebaseFirestore=FirebaseFirestore.instance;
-    CollectionReference database=await firebaseFirestore.collection('data');
-    //DocumentReference documentReference=database.doc('4');
-    //documentReference.set({'name':'kemal'});
-    database.add({'name':'izmir75'});
-
-  }
-
   void hesapla() {
     setState(() {
-      sonuc = double.parse(firstName.text) /
-          (double.parse(lastName.text) * double.parse(lastName.text));
-      print(sonuc);
+      //sonuc = double.parse(firstName.text) /
+      //  (double.parse(lastName.text) * double.parse(lastName.text));
+      //print(sonuc);
     });
   }
-  Future<void> addTextData() async{
-    FirebaseFirestore firebaseFirestore=FirebaseFirestore.instance;
-    CollectionReference database=await firebaseFirestore.collection('data');
-    //DocumentReference documentReference=database.doc('4');
-    //documentReference.set({'name':'kemal'});
-    database.add({'name':firstName.text});
+
+  Future<void> addTextData() async {
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    CollectionReference database = await firebaseFirestore.collection(
+        'studentData');
+    database.add({
+      'firstName': firstName.text,
+      'lastName': lastName.text,
+      'number': number.text
+    });
   }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       home: Scaffold(
-        appBar: AppBar(
-          title: Text('Kayıt Girişi'),
-        ),
-        body: Column(
-          children: [
-            FutureBuilder(
-                future: getData(),
-                builder:
-                    (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                  //just add this line
-                  if(snapshot.data == null) return CircularProgressIndicator();
-                  return Expanded(
-                    child: ListView.builder(
-                        itemCount: snapshot.data.docs.length,
-                        itemBuilder: (context,index){
-                          DocumentSnapshot documentSnapshot=snapshot.data.docs[index];
-                          return ListTile(
-                            title: Text(
-                              documentSnapshot.get('name'),
-                            ),
-                            onTap: (){
-                              print('silme');
-                              setState(() {
+          appBar: AppBar(
+            title: Text('Kayıt Girişi'),
+          ),
+          body: Column(
+            children: [
+          Column(children: [
+          TextField(
+          enabled: true,
+            autofocus: true,
+            focusNode: myFocusNode,
+            textAlign: TextAlign.center,
+            decoration: InputDecoration(
+              labelText: "firstName", labelStyle: TextStyle(fontSize: 20.0),
+            ),
+            controller: firstName,
+            style: TextStyle(fontSize: 20.0),
+            //keyboardType: TextInputType.number,
+            textInputAction: TextInputAction.none,
+          ),
+          TextField(
+            enabled: true,
+            //autofocus: true,
+            // style: TextStyle(height: 3.0, fontWeight: FontWeight.bold,fontSize: 30.0),
+            style: TextStyle(fontSize: 20.0),
+            //cursorWidth: 5.0,
+            //focusNode: myFocusNode,
+            textAlign: TextAlign.center,
+            decoration: InputDecoration(
+              labelText: "lastName", labelStyle: TextStyle(fontSize: 20.0),),
+            controller: lastName,
+            //keyboardType: TextInputType.number,
+            //textInputAction: TextInputAction.done,
+            //readOnly: true,
+            //obscureText: true,
+          ),
 
-                              });
+          TextField(
+            enabled: true,
+            autofocus: false,
+            // style: TextStyle(height: 3.0, fontWeight: FontWeight.bold,fontSize: 30.0),
+            style: TextStyle(fontSize: 20.0),
+            //cursorWidth: 5.0,
+            //focusNode: myFocusNode,
+            textAlign: TextAlign.center,
+            decoration: InputDecoration(
+              labelText: "Number", labelStyle: TextStyle(fontSize: 20.0),),
+            controller: number,
+            //keyboardType: TextInputType.number,
+            //textInputAction: TextInputAction.done,
+            //readOnly: true,
+            //obscureText: true,
+          ),
+
+          ElevatedButton(
+              child: Text('Kayıt Girişi', style: TextStyle(fontSize: 20.0)),
+              onPressed: () {
+                setState(() {
+                  addTextData();
+                  print('Kayıt yapıldı');
+                  firstName.clear();
+                  lastName.clear();
+                  number.clear();
+                  showDialog(
+                    context: context,
+                    builder: (_) =>
+                    new AlertDialog(title: Text("Text Dialog"),
+                      content: Text("Hey I'm Coflutter"),
+                      actions: <Widget>[
+                        TextButton(
+                            onPressed: () {
+                              _dismissDialog();
                             },
-                          );
-                        }),
+                            child: Text('Close')),
+                        TextButton(
+                          onPressed: () {
+                            print('HelloWorld!');
+                            _dismissDialog();
+                          },
+                          child: Text('HelloWorld!'),
+                        )
+                      ],
+                    ),
                   );
-                }),
-            Column(
-              children: [
-                TextField(
-                  enabled: true,
-                  autofocus: true,
-                  focusNode: myFocusNode,
-                  textAlign: TextAlign.center,
-                  decoration: InputDecoration(
-                    labelText: "firstName",labelStyle: TextStyle(fontSize: 25.0),
-                  ),
-                  controller: firstName,
-                  style: TextStyle(fontSize: 30.0),
-                  //keyboardType: TextInputType.number,
-                ),
-                TextField(
-                  enabled: true,
-                  autofocus: false,
-                 // style: TextStyle(height: 3.0, fontWeight: FontWeight.bold,fontSize: 30.0),
-                  style: TextStyle(fontSize: 30.0),
-                  cursorWidth: 5.0,
-                  //focusNode: myFocusNode,
-                  textAlign: TextAlign.center,
-                  decoration: InputDecoration(
-                    labelText: "lastName",labelStyle: TextStyle(fontSize: 25.0),),
-                    controller: lastName,
-                  //keyboardType: TextInputType.number,
-                  //readOnly: true,
-                  //obscureText: true,
-                ),
-
-                ElevatedButton(
-                    child: Text('Kayıt Girişi',style: TextStyle(fontSize: 30.0)),
-                    onPressed: (){
-                      setState(() {
-                        //addData();
-                        //hesapla();
-                        addTextData();
-                        showDialog(
-                          context: context,
-                          builder: (_) => new AlertDialog(title: Text("Text Dialog"),
-                            content: Text("Hey I'm Coflutter"),
-                            actions: <Widget>[
-                              TextButton(
-                                  onPressed: () {
-                                    _dismissDialog();
-                                  },
-                                  child: Text('Close')),
-                              TextButton(
-                                onPressed: () {
-                                  print('HelloWorld!');
-                                  _dismissDialog();
-                                },
-                                child: Text('HelloWorld!'),
-                              )
-                            ],
-                          ),
-                        );
-                      });
-                    }),
-                ElevatedButton(
+                });
+              }),
+          ElevatedButton(
                   onPressed: (){
                     Navigator.pop(context);
+                    //print(list.first.firstName1+list.first.lastName1+list.first.number1.toString());
                   },
-                  child: Text("Bu sayfayı kapat",style: TextStyle(fontSize: 30.0),),
+                  child: Text("Bu sayfayı kapat",style: TextStyle(fontSize: 20.0),),
                 ),
-              ],
-            ),
-          ],
-        ),
-      ),
+    ],
+    ),
+    ],
+    ),
+    ),
     );
   }
 }

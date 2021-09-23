@@ -14,7 +14,7 @@ class _MyAppState extends State<Liste> {
 
   Future<QuerySnapshot> getData() async {
     QuerySnapshot querySnapshot =
-    await firebaseFirestore.collection('data').get();
+    await firebaseFirestore.collection('studentData').get();
     return querySnapshot;
   }
 
@@ -41,18 +41,10 @@ class _MyAppState extends State<Liste> {
                           DocumentSnapshot documentSnapshot=snapshot.data.docs[index];
                           return ListTile(
                             title: Text(
-                              documentSnapshot.get('name'),
+                              documentSnapshot.get('firstName'),
                             ),
                             onTap: (){
-                              print(documentSnapshot.get('name'));
-                              String name1=documentSnapshot.get('name');
-                              String result1=name1.trim();
-                              String giris='Yalova95                       ';
-                              String girisTrim=giris.trim();
-                              if(result1==girisTrim){
-                                //yazi();
-                                print('Tamam 3500');
-                              }
+                              print(documentSnapshot.get('firstName'));
                             },
                           );
                         }),

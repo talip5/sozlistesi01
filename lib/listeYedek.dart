@@ -1,14 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'dart:async';
 
-class Silme extends StatefulWidget {
+class Liste extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<Silme> {
+class _MyAppState extends State<Liste> {
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
   Future<QuerySnapshot> getData() async {
@@ -17,18 +18,13 @@ class _MyAppState extends State<Silme> {
     return querySnapshot;
   }
 
-  Future<void> deleteData(String kayitNo) async{
-    CollectionReference database=await firebaseFirestore.collection('studentData');
-    database.doc(kayitNo).delete();
-     }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Silme'),
+          title: Text('Liste'),
         ),
         body: Column(
           children: [
@@ -45,36 +41,35 @@ class _MyAppState extends State<Silme> {
                           DocumentSnapshot documentSnapshot=snapshot.data.docs[index];
                           return ListTile(
                             title: Text(
-                              documentSnapshot.get('firstName'),
+                              documentSnapshot.get('name'),
                             ),
                             onTap: (){
-                              print('silme');
-                              setState(() {
-                                deleteData(documentSnapshot.id);
-                              });
-                              },
+                              print(documentSnapshot.get('name'));
+                              String name1=documentSnapshot.get('name');
+                              String result1=name1.trim();
+                              String giris='Yalova95                       ';
+                              String girisTrim=giris.trim();
+                              if(result1==girisTrim){
+                                //yazi();
+                                print('Tamam 3500');
+                              }
+                            },
                           );
                         }),
                   );
                 }),
-            Expanded(
-              child:Column(
-                children: [
-                   ElevatedButton(
-                      child: Text('Silme',style: TextStyle(fontSize: 30.0)),
-                    onPressed: (){
-                      setState(() {
-                        //deleteData('5');
-                      });
-                    }),
-                  ElevatedButton(
-                    onPressed: (){
-                      Navigator.pop(context);
-                    },
-                    child: Text("Bu sayfayı kapat",style: TextStyle(fontSize: 30.0),),
-                  ),
-                ],
-              ),
+            Column(
+              children: [
+                /*SizedBox(
+                  height: 100,
+                ),*/
+                ElevatedButton(
+                  onPressed: (){
+                    Navigator.pop(context);
+                  },
+                  child: Text("Bu sayfayı kapat",style: TextStyle(fontSize: 30.0),),
+                ),
+              ],
             ),
           ],
         ),
