@@ -5,14 +5,14 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:sozlistesi01/models/students.dart';
 
-class TekSilme extends StatefulWidget {
+class TekListe extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<TekSilme> {
+class _MyAppState extends State<TekListe> {
   FocusNode myFocusNode;
-  String baslik = 'Tek Kayıt Silme';
+  String baslik = 'Tek Kayıt Liste';
   String baslik1 = "baslik1";
   String numberId = '123456';
   String numberText = "";
@@ -81,22 +81,32 @@ class _MyAppState extends State<TekSilme> {
   Future<QuerySnapshot> denemeAdd(String numberAdd) async {
     FirebaseFirestore firebaseFirestore = await FirebaseFirestore.instance;
     CollectionReference denemeData =
-        firebaseFirestore.collection('studentData');
+    firebaseFirestore.collection('studentData');
     denemeData.add(
         {'firstName': 'izmir35', 'lastName': 'izmir935', 'number': numberAdd});
   }
 
   Future<void> fetch1() async {
     return await Future.delayed(Duration(seconds: 1), () {
-      singleView(numberDeneme);
+      singleView1(numberDeneme);
     });
   }
 
   Future<QuerySnapshot> singleView(String recort) async {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     CollectionReference dataBase =
-        await firebaseFirestore.collection('studentData');
+    await firebaseFirestore.collection('studentData');
     print(dataBase.doc(recort).id);
+  }
+
+  Future<DocumentSnapshot> singleView1(String recort) async {
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    CollectionReference dataBase =
+    await firebaseFirestore.collection('studentData');
+    print(dataBase.doc(recort).id);
+   await dataBase.doc(recort).get().then((value) {
+     print(value.get('firstName')+value.get('lastName')+value.get('number'));
+   });
   }
 
   Future<QuerySnapshot> denemeView(String kayitNumber) async {
@@ -190,10 +200,10 @@ class _MyAppState extends State<TekSilme> {
                 ElevatedButton(
                   onPressed: () async {
                     //Navigator.pop(context);
-                    await denemeView(number.text);
-                    await fetch1();
-                    await denemeDelete(numberDeneme);
-                    print('silme islemi yapildi');
+                     await denemeView(number.text);
+                     await fetch1();
+                    // await denemeDelete(numberDeneme);
+                    print('Tek kayit listeleme islemi yapildi');
                   },
                   child: Text(
                     "Bu sayfayı kapat",
