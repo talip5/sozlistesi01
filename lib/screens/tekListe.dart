@@ -14,21 +14,28 @@ class _MyAppState extends State<TekListe> {
   FocusNode myFocusNode;
   String baslik = 'Tek Kayıt Liste';
   String baslik1 = "baslik1";
-  String numberId = '123456';
+  String numberId = '3535';
   String numberText = "";
   int count = 0;
   String numberDeneme = '';
+  String firstname1 = '';
+  String lastName1 = '';
+  String number1 = '';
+  String firstnamex = '';
+  String lastNamex = '';
+  String numberx = '';
 
   @override
   void initState() {
     super.initState();
+    //number.text = numberId;
+    //yaz(number.text);
     //myFocusNode = FocusNode();
-    number.clear();
   }
 
   @override
   void dispose() {
-    myFocusNode.dispose();
+   // myFocusNode.dispose();
     number.dispose();
     super.dispose();
   }
@@ -39,74 +46,36 @@ class _MyAppState extends State<TekListe> {
     Navigator.pop(context);
   }
 
-  void hesapla() {
-    setState(() {
-      //sonuc = double.parse(firstName.text) /
-      //  (double.parse(lastName.text) * double.parse(lastName.text));
-      //print(sonuc);
-    });
-  }
-
-  Future<QuerySnapshot> denemex() async {
-    await FirebaseFirestore.instance
-        .collection('studentData')
-        .doc('hYiQDBqCYtn57en469Kt')
-        .get()
-        .then((DocumentSnapshot value) {
-      if (value.exists) {
-        print('kayit var');
-      } else {
-        print('kayit yok');
-      }
-    });
-  }
-
-  Future<QuerySnapshot> denemey() async {
-    await FirebaseFirestore.instance
-        .collection('studentData')
-        .get()
-        .then((QuerySnapshot value) {
-      //print(value.docs.elementAt(1).id);
-      numberId = value.docs.elementAt(1).id;
-    });
-  }
-
-  Future<QuerySnapshot> denemeDelete(String idDeneme) async {
-    await FirebaseFirestore.instance
-        .collection('studentData')
-        .doc(idDeneme)
-        .delete();
-  }
-
-  Future<QuerySnapshot> denemeAdd(String numberAdd) async {
-    FirebaseFirestore firebaseFirestore = await FirebaseFirestore.instance;
-    CollectionReference denemeData =
-    firebaseFirestore.collection('studentData');
-    denemeData.add(
-        {'firstName': 'izmir35', 'lastName': 'izmir935', 'number': numberAdd});
+  void yaz(String yaz1) {
+    print(yaz1);
   }
 
   Future<void> fetch1() async {
     return await Future.delayed(Duration(seconds: 1), () {
-      singleView1(numberDeneme);
+      if (numberDeneme != '0') {
+        singleView1(numberDeneme);
+      }
     });
   }
 
   Future<QuerySnapshot> singleView(String recort) async {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     CollectionReference dataBase =
-    await firebaseFirestore.collection('studentData');
+        await firebaseFirestore.collection('studentData');
     print(dataBase.doc(recort).id);
   }
 
   Future<DocumentSnapshot> singleView1(String recort) async {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     CollectionReference dataBase =
-    await firebaseFirestore.collection('studentData');
+        await firebaseFirestore.collection('studentData');
     print(dataBase.doc(recort).id);
-   await dataBase.doc(recort).get().then((value) {
-     print(value.get('firstName')+value.get('lastName')+value.get('number'));
-   });
+    await dataBase.doc(recort).get().then((value) {
+      firstname1 = value.get('firstName');
+      lastName1=value.get('lastName');
+      number1=value.get('number');
+      print(value.get('firstName') + value.get('lastName') + value.get('number'));
+    });
   }
 
   Future<QuerySnapshot> denemeView(String kayitNumber) async {
@@ -128,9 +97,25 @@ class _MyAppState extends State<TekListe> {
   }
 
   Future<void> fetch() async {
-    return await Future.delayed(Duration(seconds: 3), () {
-      print('fetch');
-      print('numberId' + numberId);
+    return await Future.delayed(Duration(milliseconds: 400), () {
+      setState(() {
+        if (numberDeneme != '0') {
+          firstname1;
+          lastName1;
+          number1;
+          firstnamex = 'FirstName : ';
+          lastNamex = 'LastName : ';
+          numberx = 'Number  : ';
+        }
+        else{
+          firstname1='KAYIT YOK.';
+          lastName1='';
+          number1='';
+          firstnamex = '';
+          lastNamex = '';
+          numberx = '';
+        }
+      });
     });
   }
 
@@ -167,14 +152,32 @@ class _MyAppState extends State<TekListe> {
                   //readOnly: true,
                   //obscureText: true,
                 ),
-                ElevatedButton(
-                    child: Text('Silme işlemi yapıldı.',
-                        style: TextStyle(fontSize: 20.0)),
-                    onPressed: () {
+                SizedBox(height: 20,),
+                Container(
+                  height: 30,
+                    width: 250,
+                    child: Text(firstnamex+'   '+firstname1,style: TextStyle(fontSize: 20.0),)),
+                Container(
+                    height: 30,
+                    width: 250,
+                    child: Text(lastNamex+'   '+lastName1,style: TextStyle(fontSize: 20.0),)),
+                Container(
+                    height: 30,
+                    width: 250,
+                    child: Text(numberx+'   '+number1,style: TextStyle(fontSize: 20.0),)),
+                SizedBox(height: 60.0),
+                Container(
+                  width: 250,
+                  height: 30,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      denemeView(number.text);
+                      await fetch1();
+                      // await denemeDelete(numberDeneme);
+                      print('Tek kayit listeleme islemi yapildi');
                       setState(() {
-                        print('Silme şlemi yapıldı');
-                        number.clear();
-                        showDialog(
+                        fetch();
+                        /*showDialog(
                           context: context,
                           builder: (_) => new AlertDialog(
                             title: Text("Text Dialog"),
@@ -194,22 +197,64 @@ class _MyAppState extends State<TekListe> {
                               )
                             ],
                           ),
-                        );
+                        );*/
                       });
-                    }),
-                ElevatedButton(
-                  onPressed: () async {
-                    //Navigator.pop(context);
-                     await denemeView(number.text);
-                     await fetch1();
-                    // await denemeDelete(numberDeneme);
-                    print('Tek kayit listeleme islemi yapildi');
-                  },
-                  child: Text(
-                    "Bu sayfayı kapat",
-                    style: TextStyle(fontSize: 20.0),
+                    },
+                    child: Text(
+                      "Tek Kayit Listeleme",
+                      style: TextStyle(fontSize: 20.0),
+                    ),
                   ),
                 ),
+                SizedBox(height: 10.0),
+                Container(
+                  width: 250,
+                  height: 30,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      Navigator.pop(context);
+                      print('Ana sayfaya donuldu');
+                    },
+                    child: Text(
+                      "Bu sayfayı kapat",
+                      style: TextStyle(fontSize: 20.0),
+                    ),
+                  ),
+                ),
+                /*SizedBox(height: 10.0),
+                Container(
+                  width: 250,
+                  height: 30,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      //Navigator.pop(context);
+                      print('Deneme');
+                     showDialog(
+                       barrierColor: Colors.green,
+                       barrierDismissible: false,
+                         context: context,
+                         builder: (BuildContext context){
+                           return AlertDialog(
+                             content: Text('ust yazi'),
+                             backgroundColor: Colors.deepOrangeAccent,
+                             title: Text('material Alert'),
+                             actions: [
+                              TextButton(
+                               onPressed: (){
+                                 _dismissDialog();
+                           },
+                               child: Text('Close',style: TextStyle(fontSize: 25.0,backgroundColor: Colors.white,color: Colors.black),)),
+                             ],
+                           );
+                         }
+                     );
+                    },
+                    child: Text(
+                      "Deneme",
+                      style: TextStyle(fontSize: 20.0),
+                    ),
+                  ),
+                ),*/
               ],
             ),
           ],

@@ -17,7 +17,7 @@ void main() async {
       primarySwatch: Colors.deepPurple,
       scaffoldBackgroundColor: Colors.green,
     ),
-    initialRoute: "/tekListe",
+    initialRoute: "/tekSilme",
     routes: {
       "/":(context)=>Home(),
       "/liste":(context)=>Liste(),

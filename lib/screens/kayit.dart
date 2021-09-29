@@ -22,7 +22,7 @@ class _MyAppState extends State<Kayit> {
 
   @override
   void dispose() {
-    myFocusNode.dispose();
+    //myFocusNode.dispose();
     firstName.dispose();
     lastName.dispose();
     number.dispose();

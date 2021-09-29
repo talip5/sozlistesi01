@@ -28,7 +28,7 @@ class _MyAppState extends State<TekSilme> {
 
   @override
   void dispose() {
-    myFocusNode.dispose();
+    //myFocusNode.dispose();
     number.dispose();
     super.dispose();
   }
@@ -193,7 +193,17 @@ class _MyAppState extends State<TekSilme> {
                     await denemeView(number.text);
                     await fetch1();
                     await denemeDelete(numberDeneme);
-                    print('silme islemi yapildi');
+                    print('Deneme silme islemi yapildi');
+                  },
+                  child: Text(
+                    "Deneme",
+                    style: TextStyle(fontSize: 20.0),
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    Navigator.pop(context);
+                    print('Sayfa kapatıldı');
                   },
                   child: Text(
                     "Bu sayfayı kapat",
