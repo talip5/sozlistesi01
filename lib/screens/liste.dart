@@ -41,7 +41,7 @@ class _MyAppState extends State<Liste> {
                           DocumentSnapshot documentSnapshot=snapshot.data.docs[index];
                           return ListTile(
                             title: Text(
-                              documentSnapshot.get('firstName'),
+                              documentSnapshot.get('firstName')+'     '+documentSnapshot.get('lastName')+'     '+documentSnapshot.get('number'),
                             ),
                             onTap: (){
                               print(documentSnapshot.get('firstName'));

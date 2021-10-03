@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:sozlistesi01/screens/guncellemeForm.dart';
+import 'package:sozlistesi01/screens/guncelleme.dart';
 import 'package:sozlistesi01/screens/home.dart';
 import 'package:sozlistesi01/screens/kayit.dart';
 import 'package:sozlistesi01/screens/liste.dart';
 import 'package:sozlistesi01/screens/silme.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:sozlistesi01/screens/tekListe.dart';
 import 'package:sozlistesi01/screens/tekSilme.dart';
@@ -17,7 +18,7 @@ void main() async {
       primarySwatch: Colors.deepPurple,
       scaffoldBackgroundColor: Colors.green,
     ),
-    initialRoute: "/tekSilme",
+    initialRoute: "/guncelleme",
     routes: {
       "/":(context)=>Home(),
       "/liste":(context)=>Liste(),
@@ -25,6 +26,8 @@ void main() async {
       "/kayit":(context)=>Kayit(),
       "/tekSilme":(context)=>TekSilme(),
       "/tekListe":(context)=>TekListe(),
+      "/guncelleme":(context)=>Guncelleme(),
+      "/guncellemeForm":(context)=>GuncellemeForm(),
     },
   ));
 }

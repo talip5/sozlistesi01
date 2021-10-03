@@ -35,6 +35,13 @@ class Home extends StatelessWidget {
                 },
               ),
               ElevatedButton(
+                child: Text("Güncelleme Sayfasına git",style: TextStyle(fontSize: 25.0),),
+                //color: Colors.amber,
+                onPressed: (){
+                  Navigator.pushNamed(context, "/guncelleme");
+                },
+              ),
+              ElevatedButton(
                 child: Text("Silme Sayfasına git",style: TextStyle(fontSize: 25.0),),
                 //color: Colors.amber,
                 onPressed: (){
