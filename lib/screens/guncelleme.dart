@@ -15,6 +15,13 @@ class Guncelleme extends StatefulWidget {
 }
 
 class _MyAppState extends State<Guncelleme> {
+  @override
+  void initState() {
+    super.initState();
+   setState(() {
+     print(students.length);
+   });
+  }
 
 List<Students> students=[
   Students('Ali1', 'Demir1',95),
@@ -22,24 +29,10 @@ List<Students> students=[
   Students('Ali3', 'Demir3',25)
 ];
 
-  Students selectedStudents=Students('x1','x2',0);
-  Students1 selectedStudents1=Students1('T1','T2','T3');
+  Students selectedStudents=Students('T1','T2',35);
 
   String kayitNo="";
   String form='studentForm';
-
-  FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-
-  Future<QuerySnapshot> getData() async {
-    QuerySnapshot querySnapshot =
-    await firebaseFirestore.collection('studentData').get();
-    return querySnapshot;
-  }
-
-  Future<void> updateData(String kayitNo) async{
-    CollectionReference database=await firebaseFirestore.collection('studentData');
-    database.doc(kayitNo).update({'firstName':'xxxxx'});
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,39 +65,7 @@ List<Students> students=[
                 }
               ),
             ),
-            Text('Secili ogrenci '+selectedStudents.firstNames,style: TextStyle(fontSize: 20.0),),
-            /*FutureBuilder(
-                future: getData(),
-                builder:
-                    (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                  //just add this line
-                  if(snapshot.data == null) return CircularProgressIndicator();
-                  return Expanded(
-                    child: ListView.builder(
-                        itemCount: snapshot.data.docs.length,
-                        itemBuilder: (context,index){
-                          DocumentSnapshot documentSnapshot=snapshot.data.docs[index];
-                          return ListTile(
-                            title: Text(
-                              documentSnapshot.get('firstName')+'     '+documentSnapshot.get('lastName')+'     '+documentSnapshot.get('number'),
-                            ),
-                            onTap: (){
-                              setState(() {
-                            // students.firstName=documentSnapshot.get('firstName');
-                                this.selectedStudents1.firstName=documentSnapshot.get('firstName');
-                                this.selectedStudents1.lastName=documentSnapshot.get('lastName');
-                                this.selectedStudents1.number=documentSnapshot.get('number');
-                              print('Güncelleme');
-                                kayitNo=documentSnapshot.id;
-                                print(kayitNo);
-                               // updateData(kayitNo);
-                              });
-                            },
-                          );
-                        }),
-                  );
-                }),*/
-            Text('Secili ogrenci '+selectedStudents1.firstName+'    '+selectedStudents1.lastName+'    '+selectedStudents1.number,style: TextStyle(fontSize: 20.0),),
+            Text('Secili ogrenci '+selectedStudents.firstNames+'    '+selectedStudents.lastNames+'    '+selectedStudents.numbers.toString(),style: TextStyle(fontSize: 20.0),),
             Expanded(
               child:Column(
                 children: [
@@ -135,7 +96,8 @@ List<Students> students=[
                     child: ElevatedButton(
                       onPressed: (){
                         print('Yeni ogrenci');
-                        Navigator.push(context,MaterialPageRoute(builder: (context)=>StudentAdd(students)));
+                        Navigator.push(context,MaterialPageRoute(builder: (context)=>StudentAdd(students))).then((value) => setState((){}));
+                        //Navigator.push(context, MaterialPageRoute(builder: (context) => StudentAdd(students))).then((value) => {setState(() {})});
                       },
                       style: ElevatedButton.styleFrom(
                         primary: Colors.green,

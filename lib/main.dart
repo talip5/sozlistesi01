@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sozlistesi01/screens/formKayit.dart';
 import 'package:sozlistesi01/screens/guncellemeForm.dart';
 import 'package:sozlistesi01/screens/guncelleme.dart';
 import 'package:sozlistesi01/screens/home.dart';
@@ -18,7 +19,7 @@ void main() async {
       primarySwatch: Colors.deepPurple,
       scaffoldBackgroundColor: Colors.green,
     ),
-    initialRoute: "/guncelleme",
+    initialRoute: "/formKayit",
     routes: {
       "/":(context)=>Home(),
       "/liste":(context)=>Liste(),
@@ -28,6 +29,7 @@ void main() async {
       "/tekListe":(context)=>TekListe(),
       "/guncelleme":(context)=>Guncelleme(),
       "/guncellemeForm":(context)=>GuncellemeForm(),
+      "/formKayit":(context)=>FormKayit(),
     },
   ));
 }

@@ -21,7 +21,7 @@ class StudentAdd extends StatefulWidget{
 class _StudentAddState extends State<StudentAdd>{
 
   var formkey=GlobalKey<FormState>();
-  Students studentsQ=Students('','',35);
+  var studentsQ=Students('','',35);
 
   @override
   Widget build(BuildContext context) {
